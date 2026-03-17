@@ -3,12 +3,17 @@ SORT: common sorting algorithms in C
 
 COMPILE:
     make
-        -> generates "libsort.a"
+        -> generates <libsort.a>
     make clean
         -> cleans up all generated files
 
+USAGE:
+    1) compile
+    2) add <libsort.a> to CWD
+    3) #include "sort.h"
+    4) add <-L. -lsort> in gcc
+
 METHODS:
-    #include "sort.h", then:
     void selectionSort(int arr[], int n);
     void bubbleSort(int arr[], int n);
     void insertionSort(int arr[], int n);
