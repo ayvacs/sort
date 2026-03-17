@@ -3,7 +3,9 @@ SORT: common sorting algorithms in C
 
 COMPILE:
     make
-    -> generates "libsort.a"
+        -> generates "libsort.a"
+    make clean
+        -> cleans up all generated files
 
 METHODS:
     #include "sort.h", then:
@@ -12,3 +14,10 @@ METHODS:
     void insertionSort(int arr[], int n);
     void quickSort(int arr[], int n);
     void mergeSort(int arr[], int n);
+
+TESTING:
+    a tester file is provided for your
+    convenience:
+        make
+        gcc tester.c -L. -lsort -o tester
+        ./tester
