@@ -1,5 +1,15 @@
 #include "sort.h"
 
+static void findI(int* i, int arr[], int high, int p) {
+    while (arr[*i] <= p && (*i) <= high - 1)
+        (*i)++;
+}
+
+static void findJ(int* j, int arr[], int low, int p) {
+    while (arr[*j] > p && (*j) >= low + 1)
+        (*j)--;
+}
+
 static int partition(int arr[], int low, int high) {
     // initialize the pivot to the first element
     int p = arr[low];
@@ -8,22 +18,19 @@ static int partition(int arr[], int low, int high) {
 
     while (i < j) {
         // find the leftmost element greater than the pivot
-        while (arr[i] <= p && i <= high - 1)
-            i++;
+        findI(&i, arr, high, p);
 
         // find the rightmost element smaller than the pivot
-        while (arr[j] > p && j >= low + 1)
-            j--;
+        findJ(&j, arr, low, p);
 
-        if (i < j) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
+        // if the leftmost element is less than the rightmost element, swap them
+        if (i < j)
+            _sort__swap(arr, i, j);
     }
-    int temp = arr[low];
-    arr[low] = arr[j];
-    arr[j] = temp;
+
+    // swap these two values
+    _sort__swap(arr, low, j);
+    
     return j;
 }
 
