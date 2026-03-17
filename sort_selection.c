@@ -11,8 +11,6 @@ void selectionSort(int arr[], int n) {
         }
         
         // swap these two values
-        int temp = arr[i];
-        arr[i] = arr[minIndex];
-        arr[minIndex] = temp;
+        _sort__swap(arr, i, minIndex);
     }
 }

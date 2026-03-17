@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -I.
 
-OBJ = sort_bubble.o sort_insertion.o sort_merge.o sort_quick.o sort_selection.o
+OBJ = sort_bubble.o sort_insertion.o sort_internal.o sort_merge.o sort_quick.o sort_selection.o
 
 LIB = libsort.a
 
