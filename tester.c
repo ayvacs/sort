@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "sort.h"
+
+// helper function to print arrays
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+// compare two arrays
+int arraysEqual(int a[], int b[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (a[i] != b[i])
+            return 0;
+    }
+    return 1;
+}
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+// wrapper to test a sorting function
+void testSort(void (*sortFunc)(int[], int), const char *name, int original[], int n) {
+    int test[n];
+    int expected[n];
+
+    // copy original into test and expected
+    memcpy(test, original, sizeof(int) * n);
+    memcpy(expected, original, sizeof(int) * n);
+
+    // sort expected using qsort (trusted reference)
+    qsort(expected, n, sizeof(int), compare);
+
+    // run your sort
+    sortFunc(test, n);
+
+    // compare results
+    if (!arraysEqual(test, expected, n)) {
+        printf("❌ %s FAILED\n", name);
+        printf("Expected: ");
+        printArray(expected, n);
+        printf("Got:      ");
+        printArray(test, n);
+        printf("\n");
+    } else {
+        printf("✅ %s passed\n", name);
+    }
+}
+
+int main() {
+    // test cases
+    int test1[] = {5, 2, 9, 1, 5, 6};
+    int test2[] = {10, 9, 8, 7, 6, 5};
+    int test3[] = {1, 2, 3, 4, 5};
+    int test4[] = {3, -1, 0, -5, 8, 2};
+    int test5[] = {1};
+
+    int *tests[] = {test1, test2, test3, test4, test5};
+    int sizes[] = {6, 6, 5, 6, 1};
+    int numTests = 5;
+
+    for (int t = 0; t < numTests; t++) {
+        printf("==== Test Case %d ====\n", t + 1);
+
+        testSort(selectionSort, "selectionSort", tests[t], sizes[t]);
+        testSort(bubbleSort,    "bubbleSort",    tests[t], sizes[t]);
+        testSort(insertionSort, "insertionSort", tests[t], sizes[t]);
+        testSort(quickSort,     "quickSort",     tests[t], sizes[t]);
+        testSort(mergeSort,     "mergeSort",     tests[t], sizes[t]);
+
+        printf("\n");
+    }
+
+    return 0;
+}
