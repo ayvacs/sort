@@ -1,6 +1,6 @@
 #include "sort.h"
 
-void mergeSort_merge(int arr[], int left, int mid, int right) {
+static void merge(int arr[], int left, int mid, int right) {
 	// calculate the size of the left and right subarrays
 	int len_left = mid - left + 1;
 	int len_right = right - mid;
@@ -34,20 +34,20 @@ void mergeSort_merge(int arr[], int left, int mid, int right) {
 		arr[k++] = temp_right[j++];
 }
 
-void mergeSort_recurse(int arr[], int left, int right) {
+static void recurse(int arr[], int left, int right) {
 	if (left < right) {
 		// find the middle
 		int mid = left + (right - left) / 2;
 		
 		// recursively sort the first and second halves
-		mergeSort_recurse(arr, left, mid);
-		mergeSort_recurse(arr, mid + 1, right);
+		recurse(arr, left, mid);
+		recurse(arr, mid + 1, right);
 		
 		// merge the newly sorted halves
-		mergeSort_merge(arr, left, mid, right);
+		merge(arr, left, mid, right);
 	}
 }
 
 void mergeSort(int arr[], int length) {
-	mergeSort_recurse(arr, 0, length - 1);
+	recurse(arr, 0, length - 1);
 }

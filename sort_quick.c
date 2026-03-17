@@ -1,6 +1,6 @@
 #include "sort.h"
 
-int quickSort_partition(int arr[], int low, int high) {
+static int partition(int arr[], int low, int high) {
     // initialize the pivot to the first element
     int p = arr[low];
     int i = low;
@@ -27,14 +27,15 @@ int quickSort_partition(int arr[], int low, int high) {
     return j;
 }
 
-void quickSort_recurse(int arr[], int low, int high) {
-    if (low < high) {
-        int p = quickSort_partition(arr, low, high);
-        quickSort_recurse(arr, low, p - 1);
-        quickSort_recurse(arr, p + 1, high);
-    }
+static void recurse(int arr[], int low, int high) {
+    if (low >= high)
+        return;
+
+    int p = partition(arr, low, high);
+    recurse(arr, low, p - 1);
+    recurse(arr, p + 1, high);
 }
 
 void quickSort(int arr[], int n) {
-    quickSort_recurse(arr, 0, n - 1);
+    recurse(arr, 0, n - 1);
 }
